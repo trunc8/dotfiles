@@ -7,6 +7,42 @@ DID_BACKUP=false
 
 echo "=== Dotfiles Setup ==="
 
+# --- Prerequisite checks ---
+echo "[0/7] Checking prerequisites..."
+_prereq_warn=0
+
+if ! command -v git &>/dev/null; then
+    echo "  ERROR: git is not installed. Install it first: sudo apt install git"
+    exit 1
+fi
+
+if ! command -v zsh &>/dev/null; then
+    echo "  WARN: zsh not found. Install it: sudo apt install zsh"
+    _prereq_warn=1
+fi
+
+if ! command -v starship &>/dev/null; then
+    echo "  WARN: starship not found. Run ./install_linux.sh first."
+    _prereq_warn=1
+fi
+
+if command -v fc-list &>/dev/null; then
+    if ! fc-list 2>/dev/null | grep -qi "Nerd"; then
+        echo "  WARN: No Nerd Font detected. Icons in starship/eza will be broken."
+        echo "        Run ./install_linux.sh to install JetBrainsMono Nerd Font,"
+        echo "        then set your terminal font to 'JetBrainsMono Nerd Font'."
+        _prereq_warn=1
+    fi
+else
+    echo "  WARN: fc-list not found, cannot check for Nerd Font."
+    _prereq_warn=1
+fi
+
+if [ "$_prereq_warn" -eq 0 ]; then
+    echo "  All prerequisites met."
+fi
+echo ""
+
 # --- Backup existing configs ---
 backup_if_exists() {
     local target="$1"

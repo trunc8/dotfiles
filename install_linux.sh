@@ -70,25 +70,50 @@ install_from_tarball() {
 echo "=== Linux QoL Installer (arch: $ARCH) ==="
 echo ""
 
-# --- 1. Starship ---
-echo "[1/9] Starship"
+# --- 1. Nerd Font (required for starship/eza icons) ---
+echo "[1/10] Nerd Font (JetBrainsMono)"
+FONT_DIR="$HOME/.local/share/fonts"
+mkdir -p "$FONT_DIR"
+if fc-list 2>/dev/null | grep -qi "JetBrainsMono.*Nerd"; then
+    echo "  Already installed."
+else
+    NERD_TAG="$(gh_latest ryanoasis/nerd-fonts)" || true
+    if [ -n "$NERD_TAG" ]; then
+        tmpdir="$(mktemp -d "$_TMPBASE/qol.XXXXXX")"
+        curl -sfL "https://github.com/ryanoasis/nerd-fonts/releases/download/${NERD_TAG}/JetBrainsMono.tar.xz" \
+            -o "$tmpdir/JetBrainsMono.tar.xz"
+        tar xf "$tmpdir/JetBrainsMono.tar.xz" -C "$FONT_DIR"
+        rm -rf "$tmpdir"
+        if command -v fc-cache >/dev/null 2>&1; then
+            fc-cache -f "$FONT_DIR"
+        fi
+        echo "  -> JetBrainsMono Nerd Font installed to $FONT_DIR"
+        echo "  NOTE: Set your terminal font to 'JetBrainsMono Nerd Font' for icons to work."
+    else
+        echo "  WARNING: Could not fetch Nerd Font release. Install manually from:"
+        echo "  https://github.com/ryanoasis/nerd-fonts/releases"
+    fi
+fi
+
+# --- 2. Starship ---
+echo "[2/10] Starship"
 curl -sS https://starship.rs/install.sh | sh -s -- -b "$INSTALL_DIR" -y
 
-# --- 2. Zoxide ---
-echo "[2/9] Zoxide"
+# --- 3. Zoxide ---
+echo "[3/10] Zoxide"
 curl -sSf https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh \
     | BIN_DIR="$INSTALL_DIR" bash
 
-# --- 3. FZF ---
-echo "[3/9] FZF"
+# --- 4. FZF ---
+echo "[4/10] FZF"
 if [ ! -d "$HOME/.fzf" ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
 fi
 "$HOME/.fzf/install" --bin --no-update-rc --no-completion --no-key-bindings
 ln -sf "$HOME/.fzf/bin/fzf" "$INSTALL_DIR/fzf"
 
-# --- 4. Eza ---
-echo "[4/9] Eza"
+# --- 5. Eza ---
+echo "[5/10] Eza"
 EZA_TAG="$(gh_latest eza-community/eza)" || true
 if [ -n "$EZA_TAG" ]; then
     tmpdir="$(mktemp -d "$_TMPBASE/qol.XXXXXX")"
@@ -104,23 +129,23 @@ if [ -n "$EZA_TAG" ]; then
     rm -rf "$tmpdir"
 fi
 
-# --- 5. Bat ---
-echo "[5/9] Bat"
+# --- 6. Bat ---
+echo "[6/10] Bat"
 BAT_TAG="$(gh_latest sharkdp/bat)"
 install_from_tarball "sharkdp/bat" "bat-${BAT_TAG}-${RUST_MUSL}.tar.gz" "bat"
 
-# --- 6. Ripgrep ---
-echo "[6/9] Ripgrep"
+# --- 7. Ripgrep ---
+echo "[7/10] Ripgrep"
 RG_TAG="$(gh_latest BurntSushi/ripgrep)"
 install_from_tarball "BurntSushi/ripgrep" "ripgrep-${RG_TAG}-${RUST_MUSL}.tar.gz" "rg"
 
-# --- 7. Dust ---
-echo "[7/9] Dust"
+# --- 8. Dust ---
+echo "[8/10] Dust"
 DUST_TAG="$(gh_latest bootandy/dust)"
 install_from_tarball "bootandy/dust" "dust-${DUST_TAG}-${RUST_MUSL}.tar.gz" "dust"
 
-# --- 8. Yazi ---
-echo "[8/9] Yazi"
+# --- 9. Yazi ---
+echo "[9/10] Yazi"
 YAZI_TAG="$(gh_latest sxyazi/yazi)" || true
 if [ -n "$YAZI_TAG" ]; then
     tmpdir="$(mktemp -d "$_TMPBASE/qol.XXXXXX")"
@@ -142,8 +167,8 @@ if [ -n "$YAZI_TAG" ]; then
     rm -rf "$tmpdir"
 fi
 
-# --- 9. ble.sh (Bash-only) ---
-echo "[9/9] ble.sh"
+# --- 10. ble.sh (Bash-only) ---
+echo "[10/10] ble.sh"
 rm -rf "$DATA_DIR/blesh"
 tmpdir="$(mktemp -d "$_TMPBASE/qol.XXXXXX")"
 curl -sfL https://github.com/akinomyoga/ble.sh/releases/download/nightly/ble-nightly.tar.xz \
