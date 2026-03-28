@@ -6,6 +6,8 @@
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR='vim'
 export LESS='-R --mouse --wheel-lines=3'
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 DOTFILES_DIR="$HOME/dotfiles"
 
 # If /tmp is not writable, use ~/.tmp
