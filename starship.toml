@@ -7,16 +7,16 @@ palette = "custom"
 format = """
 $username\
 $hostname\
-[](fg:bg_dark bg:dir_blue)\
+[](fg:bg_dark bg:dir_blue)\
 $directory\
-[](fg:dir_blue bg:git_green)\
+[](fg:dir_blue bg:git_green)\
 $git_branch\
 $git_status\
 $git_metrics\
-[](fg:git_green bg:env_blue)\
+[](fg:git_green bg:env_blue)\
 $conda\
 $python\
-[](fg:env_blue) \
+[](fg:env_blue) \
 $character"""
 
 # --- User@Host: white text, no background ---
@@ -42,10 +42,13 @@ truncation_symbol = "…/"
 # --- Git Branch ---
 [git_branch]
 format = '[ $symbol$branch(:$remote_branch) ]($style)'
-symbol = " "
+symbol = " "
 style = "fg:git_text bg:git_green"
 
 # --- Git Status ---
+# To disable on a specific repo, add to the repo's .starship.toml:
+#   [git_status]
+#   disabled = true
 [git_status]
 format = '[$all_status$ahead_behind ]($style)'
 style = "fg:git_text bg:git_green"
