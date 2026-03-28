@@ -50,7 +50,7 @@ foreground = "0xd4d7d5"
 size = 12.0
 
 [font.bold]
-family = "Monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.glyph_offset]
@@ -58,11 +58,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.normal]
-family = "Monospace"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.offset]
