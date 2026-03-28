@@ -252,3 +252,10 @@ export PATH="$HOME/villa/Lobby/installers/julia-1.6.7/bin:$PATH"
 
 
 # To remove the "Are you sure about this?" prompt from apt and apt-get, check which apt and go to that location and delete/rename the executable script
+# Update: Deleted that script
+
+source ~/.env
+
+# Reason that closing lid doesn't work normally-
+# sudo nano /etc/systemd/logind.conf
+# HandleLidSwitch=suspend -> ignore
