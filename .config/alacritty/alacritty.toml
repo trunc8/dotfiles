@@ -1,9 +1,5 @@
-# cursor_style = "Block"
-# custom_cursor_colors = false
-# hide_cursor_when_typing = false
-# live_config_reload = true
-# unfocused_hollow_cursor = true
-# "window.dynamic_title" = true
+# ~/dotfiles/.config/alacritty/alacritty.toml
+# Target platform: Ubuntu + i3 (no macOS Command key bindings)
 
 [bell]
 animation = "EaseOutExpo"
@@ -51,7 +47,6 @@ background = "0x202020"
 foreground = "0xd4d7d5"
 
 [font]
-# AppleFontSmooting = true
 size = 12.0
 
 [font.bold]
@@ -74,15 +69,7 @@ style = "Regular"
 x = 0
 y = 0
 
-[[keyboard.bindings]]
-action = "Paste"
-key = "V"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Command"
+# --- Keyboard bindings (Linux only, no Command key) ---
 
 [[keyboard.bindings]]
 action = "Paste"
@@ -91,21 +78,6 @@ key = "Paste"
 [[keyboard.bindings]]
 action = "Copy"
 key = "Copy"
-
-[[keyboard.bindings]]
-action = "Hide"
-key = "H"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "Quit"
-key = "Q"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "Quit"
-key = "W"
-mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u001BOH"
@@ -126,31 +98,6 @@ mode = "AppCursor"
 chars = "\u001B[F"
 key = "End"
 mode = "~AppCursor"
-
-[[keyboard.bindings]]
-action = "ResetFontSize"
-key = "Key0"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "IncreaseFontSize"
-key = "Equals"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "DecreaseFontSize"
-key = "Minus"
-mods = "Command"
-
-[[keyboard.bindings]]
-action = "ClearHistory"
-key = "K"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\f"
-key = "K"
-mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u001B[5;2~"
@@ -531,85 +478,14 @@ key = "F12"
 mods = "Alt"
 
 [[keyboard.bindings]]
-chars = "\u001B[1;3P"
-key = "F1"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[1;3Q"
-key = "F2"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[1;3R"
-key = "F3"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[1;3S"
-key = "F4"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[15;3~"
-key = "F5"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[17;3~"
-key = "F6"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[18;3~"
-key = "F7"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[19;3~"
-key = "F8"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[20;3~"
-key = "F9"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[21;3~"
-key = "F10"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[23;3~"
-key = "F11"
-mods = "Command"
-
-[[keyboard.bindings]]
-chars = "\u001B[24;3~"
-key = "F12"
-mods = "Command"
-
-[[keyboard.bindings]]
 chars = """
 
 """
 key = "NumpadEnter"
 
-[[keyboard.bindings]]
-action = "SpawnNewInstance"
-key = "N"
-mods = "Command"
-
 [[mouse.bindings]]
 action = "PasteSelection"
 mouse = "Middle"
-
-# [mouse.double_click]
-# threshold = 300
-# 
-# [mouse.triple_click]
-# threshold = 300
 
 [scrolling]
 history = 10000

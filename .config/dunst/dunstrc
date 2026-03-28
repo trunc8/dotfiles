@@ -334,14 +334,14 @@
     foreground = "#ffffff"
     timeout = 5
     # Icon for notifications with low urgency, uncomment to enable
-    icon = /home/trunc8/.config/dunst/normal.png
+    icon = ~/.config/dunst/normal.png
 
 [urgency_normal]
     background = "#2b2b5b"
     foreground = "#ffffe0"
     timeout = 6
     # Icon for notifications with normal urgency, uncomment to enable
-    icon = /home/trunc8/.config/dunst/normal.png
+    icon = ~/.config/dunst/normal.png
 
 [urgency_critical]
     background = "#500000"
@@ -349,7 +349,7 @@
     frame_color = "#ff0000"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
-    icon = /home/trunc8/.config/dunst/critical.png
+    icon = ~/.config/dunst/critical.png
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.

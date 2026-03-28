@@ -1,0 +1,157 @@
+# ~/dotfiles/aliases
+# Consolidated aliases and functions for both shells.
+# Sourced by common.sh. _current_shell is set before this file loads.
+
+# Fallback defaults: aliases is sometimes sourced standalone (e.g., scripts
+# that run bash commands without a login shell, skipping common.sh).
+: "${DOTFILES_DIR:=$HOME/dotfiles}"
+
+# =============================================================================
+# Universal aliases (all machines)
+# =============================================================================
+
+# --- Shell convenience ---
+# Double-quoted so _current_shell expands at definition time (it gets unset later)
+alias sz="exec $_current_shell -l"           # Full shell reload
+alias ez="vim $DOTFILES_DIR/${_current_shell}rc" # Edit the appropriate rc file
+
+# --- Dotfiles management ---
+alias dpull='git -C $DOTFILES_DIR pull --ff-only'
+alias dsetup='$DOTFILES_DIR/setup_links.sh'
+
+# --- Eza (ls replacement, requires Nerd Font for icons) ---
+if command -v eza >/dev/null 2>&1; then
+    alias ls='eza --icons --git --group-directories-first'
+    alias ll='eza -l --icons --git --group-directories-first'
+    alias la='eza -la --icons --git --group-directories-first'
+    alias tree='eza --tree --icons'
+fi
+
+# --- Bat (cat replacement) ---
+if command -v bat >/dev/null 2>&1; then
+    alias cat='bat --paging=never'
+fi
+
+# --- Dust (du replacement) ---
+if command -v dust >/dev/null 2>&1; then
+    alias du='dust'
+fi
+
+# --- Yazi (file manager, cd's to last directory on quit) ---
+if command -v yazi >/dev/null 2>&1; then
+    y() {
+        local tmp
+        tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+        yazi "$@" --cwd-file="$tmp"
+        if [ -f "$tmp" ]; then
+            local cwd
+            cwd="$(command cat "$tmp")"
+            rm -f "$tmp"
+            [ -d "$cwd" ] && [ "$cwd" != "$PWD" ] && cd "$cwd"
+        fi
+    }
+fi
+
+# --- Git ---
+
+# Helper: returns current branch name
+gcb_name() {
+    git rev-parse --abbrev-ref HEAD 2>/dev/null
+}
+
+# Basics
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gc='git commit'
+alias 'gcn!'='git commit --no-edit --amend'
+alias gcmsg='git commit -m'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gf='git fetch'
+alias gl='git pull'
+alias gp='git push'
+alias gpf='git push --force-with-lease'
+alias gst='git status'
+alias glog='git log --oneline --graph --decorate'
+
+# Branch-aware
+alias gpsup='git push --set-upstream origin $(gcb_name)'
+alias ggpush='git push origin $(gcb_name)'
+alias ggpull='git pull origin $(gcb_name)'
+alias gpr='git pull --rebase'
+alias gprr='git pull --rebase origin $(gcb_name)'
+
+# Stash
+alias gsta='git stash push'
+alias gstaa='git stash push --include-untracked'
+alias gstp='git stash pop'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gsts='git stash show --patch'
+
+# Cherry-pick
+alias gcp='git cherry-pick'
+alias gcpc='git cherry-pick --continue'
+alias gcpa='git cherry-pick --abort'
+
+# Merge / Rebase
+alias gm='git merge'
+alias grb='git rebase'
+alias grbi='git rebase -i'
+alias grbc='git rebase --continue'
+alias grba='git rebase --abort'
+
+# Log
+alias glg='git log --stat'
+alias glgg='git log --graph'
+alias glgga='git log --graph --decorate --all'
+
+# --- Tmux ---
+alias tksv='tmux kill-server'
+alias tl='tmux list-sessions'
+
+ts() {
+    if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]]; then
+        tmux new-session "$@"
+    else
+        tmux new-session -s "$@"
+    fi
+}
+
+ta() {
+    if [[ -z $1 ]] || [[ ${1:0:1} == '-' ]]; then
+        tmux attach "$@"
+    else
+        tmux attach -t "$@"
+    fi
+}
+
+# --- Storage ---
+alias show_storage='command du -h --max-depth=1 2>/dev/null | sort -h'
+
+# =============================================================================
+# Personal aliases (Ubuntu + i3 specific)
+# =============================================================================
+
+# --- System ---
+alias trash='gio trash'
+alias u2='sudo apt update && sudo apt upgrade'
+
+# --- File operations ---
+op() { xdg-open "$@" &>/dev/null & }
+con() { convert "$1" -resize "$2" "$1"; }
+w2m() { ffmpeg -i "$1" -c:v libx264 -c:a aac "${1%.webm}.mp4"; }
+
+# --- Display management (xrandr) ---
+alias one_monitor='xrandr --auto && xrandr --output HDMI-0 --mode 1920x1080 --same-as DP-4'
+alias left_monitor='xrandr --auto && xrandr --output HDMI-0 --left-of DP-4'
+alias right_monitor='xrandr --auto && xrandr --output HDMI-0 --right-of DP-4'
+
+# --- System troubleshooting ---
+alias help_no_sound='pulseaudio -k && sudo alsa force-reload'
+alias help_internet_down='systemctl restart network-manager.service'
+alias help_nvidia_down='sudo modprobe -r nvidia_uvm && sudo modprobe nvidia_uvm'

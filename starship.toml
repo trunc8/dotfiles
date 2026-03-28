@@ -1,0 +1,96 @@
+# ~/dotfiles/starship.toml
+# P10k-style powerline prompt. Requires Nerd Font.
+
+command_timeout = 1000
+palette = "custom"
+
+format = """
+$username\
+$hostname\
+[](fg:bg_dark bg:dir_blue)\
+$directory\
+[](fg:dir_blue bg:git_green)\
+$git_branch\
+$git_status\
+$git_metrics\
+[](fg:git_green bg:env_blue)\
+$conda\
+$python\
+[](fg:env_blue) \
+$character"""
+
+# --- User@Host: white text, no background ---
+[username]
+show_always = true
+format = "[$user]($style)"
+style_user = "fg:text_white"
+style_root = "fg:error_red"
+
+[hostname]
+ssh_only = true
+format = "[@$hostname]($style)"
+style = "fg:text_white"
+
+# --- Directory ---
+[directory]
+format = "[ $path ]($style)"
+style = "fg:text_dark bg:dir_blue"
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = "…/"
+
+# --- Git Branch ---
+[git_branch]
+format = '[ $symbol$branch(:$remote_branch) ]($style)'
+symbol = " "
+style = "fg:git_text bg:git_green"
+
+# --- Git Status ---
+[git_status]
+format = '[$all_status$ahead_behind ]($style)'
+style = "fg:git_text bg:git_green"
+use_git_executable = true
+conflicted = "="
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?${count}"
+stashed = "*${count}"
+modified = "!${count}"
+staged = "+${count}"
+deleted = "x${count}"
+
+# --- Git Metrics ---
+[git_metrics]
+format = "([+$added]($added_style))([-$deleted]($deleted_style))"
+added_style = "fg:git_text bg:git_green"
+deleted_style = "fg:error_red bg:git_green"
+disabled = false
+
+# --- Conda environment ---
+[conda]
+format = "[ $environment ]($style)"
+style = "fg:git_text bg:env_blue"
+
+# --- Python virtualenv ---
+[python]
+format = "[($virtualenv)]($style)"
+style = "fg:git_text bg:env_blue"
+
+# --- Prompt character ---
+[character]
+success_symbol = '[➜](bold green) '
+error_symbol = '[✗](bold error_red) '
+
+# --- Color Palette ---
+# Change colors here to retheme the entire prompt.
+[palettes.custom]
+bg_dark = "#111111"
+dir_blue = "#2926dd"
+git_green = "#13d751"
+env_blue = "#86BBD8"
+text_white = "#ffffff"
+text_light = "#E4E4E4"
+text_dark = "#111111"
+git_text = "#1C3A5E"
+error_red = "#E84D44"

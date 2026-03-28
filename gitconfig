@@ -1,0 +1,47 @@
+[user]
+	name = Siddharth Saha
+	email = sahasiddharth611@gmail.com
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = false
+
+[push]
+	default = current
+
+[core]
+	editor = vim
+	autocrlf = input
+	untrackedCache = true
+	commitGraph = true
+	multiPackIndex = true
+
+[feature]
+	manyFiles = true
+
+[checkout]
+	workers = 32
+
+[index]
+	threads = 0
+
+[fetch]
+	prune = true
+	pruneTags = true
+
+[pack]
+	threads = 0
+
+[repack]
+	writeBitmaps = true
+
+[color]
+	ui = auto
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default

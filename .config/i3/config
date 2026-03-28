@@ -335,9 +335,9 @@ bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher
 exec xrandr --dpi 120
 
 # Set background
-exec_always feh --bg-scale ~/villa/Attic/wallpapers/waves_sunset.jpeg
-# exec_always feh --bg-scale ~/villa/Attic/wallpapers/ghost_rider_wallpaper.jpg
-# exec_always feh --bg-scale ~/villa/Attic/wallpapers/desolate_hut_wallpaper.jpg
+exec_always feh --bg-scale ~/Pictures/wallpapers/waves_sunset.jpeg
+# exec_always feh --bg-scale ~/Pictures/wallpapers/ghost_rider_wallpaper.jpg
+# exec_always feh --bg-scale ~/Pictures/wallpapers/desolate_hut_wallpaper.jpg
 
 # For nightlight
 exec redshift
