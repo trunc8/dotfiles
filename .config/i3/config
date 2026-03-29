@@ -313,6 +313,9 @@ bindsym Ctrl+Shift+Print exec maim -us | xclip -selection clipboard -t image/png
 ## Run ocr (inside ~/bin)
 bindsym $mod+o exec ocr
 
+## Toggle laptop display (DP-4) on/off
+bindsym $mod+F7 exec --no-startup-id "xrandr --listmonitors | grep -q DP-4 && xrandr --output DP-4 --off || xrandr --output DP-4 --auto"
+
 ## Rerun redshift (inside ~/bin)
 bindsym $mod+F9 exec set_brightness
 
