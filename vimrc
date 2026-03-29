@@ -31,7 +31,9 @@ set listchars=tab:>-,trail:-,nbsp:_
 set list
 
 " Clipboard
-set clipboard=unnamedplus
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
 
 " Colorscheme
-colorscheme monokai
+silent! colorscheme monokai

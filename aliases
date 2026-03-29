@@ -152,6 +152,6 @@ alias left_monitor='xrandr --auto && xrandr --output HDMI-0 --left-of DP-4'
 alias right_monitor='xrandr --auto && xrandr --output HDMI-0 --right-of DP-4'
 
 # --- System troubleshooting ---
-alias help_no_sound='pulseaudio -k && sudo alsa force-reload'
+alias help_no_sound='if command -v pulseaudio >/dev/null 2>&1; then pulseaudio -k && sudo alsa force-reload; else systemctl --user restart pipewire pipewire-pulse wireplumber; fi'
 alias help_internet_down='systemctl restart network-manager.service'
 alias help_nvidia_down='sudo modprobe -r nvidia_uvm && sudo modprobe nvidia_uvm'
