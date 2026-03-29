@@ -178,9 +178,14 @@ ln -sf "$DOTFILES/yazi/yazi.toml" "$HOME/.config/yazi/yazi.toml"
 echo "  ~/.config/yazi/yazi.toml -> dotfiles/yazi/yazi.toml"
 
 # i3, dunst, alacritty config directories (symlink entire dirs)
-ln -sfn "$DOTFILES/.config/alacritty" "$HOME/.config/alacritty"
-ln -sfn "$DOTFILES/.config/dunst" "$HOME/.config/dunst"
-ln -sfn "$DOTFILES/.config/i3" "$HOME/.config/i3"
+# Must remove existing dirs first — ln -sfn on a directory creates a symlink
+# inside it instead of replacing it (e.g. ~/.config/i3/i3 -> dotfiles/.config/i3)
+for confdir in alacritty dunst i3; do
+    if [ -d "$HOME/.config/$confdir" ] && [ ! -L "$HOME/.config/$confdir" ]; then
+        rm -rf "$HOME/.config/$confdir"
+    fi
+    ln -sfn "$DOTFILES/.config/$confdir" "$HOME/.config/$confdir"
+done
 echo "  ~/.config/alacritty -> dotfiles/.config/alacritty"
 echo "  ~/.config/dunst -> dotfiles/.config/dunst"
 echo "  ~/.config/i3 -> dotfiles/.config/i3"
