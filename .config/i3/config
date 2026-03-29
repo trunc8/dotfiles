@@ -85,7 +85,7 @@ bindsym $mod+bar split h
 bindsym $mod+minus split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -331,8 +331,8 @@ bindsym $mod+space exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher
 
 
 # STARTUP
-# Set default DPI to 120 to make the i3 bar smaller
-exec xrandr --dpi 120
+# Set monitor resolution (otherwise defaults too low)
+exec xrandr --output DP-0 --mode 2560x1440
 
 # Set background
 exec_always feh --bg-scale ~/Pictures/wallpapers/waves_sunset.jpeg
