@@ -1,22 +1,28 @@
 # dotfiles
 
-Personal dotfiles for Ubuntu 22 + i3 + zsh + alacritty. Managed as a regular git repo with symlink deployment.
+Personal dotfiles for Ubuntu 22/24 + i3 + zsh + kitty. Managed as a regular git repo with symlink deployment.
 
-## Quick Start
+## Quick Start (fresh Ubuntu install)
 
 ```bash
+# 1. Install system packages
+sudo apt update && sudo apt install -y \
+    git curl zsh tmux vim \
+    i3 i3blocks i3lock xss-lock picom brightnessctl \
+    kitty feh rofi dunst maim xclip playerctl redshift \
+    imagemagick ffmpeg
+
+# 2. Set zsh as default shell (takes effect on next login)
+chsh -s $(which zsh)
+
+# 3. Clone and set up dotfiles
 git clone <remote> ~/dotfiles
 cd ~/dotfiles
 ./install_linux.sh      # Install modern CLI tools to ~/.local/bin
 ./setup_links.sh        # Symlink configs into $HOME (backs up existing files first)
-exec $SHELL -l          # Reload shell
+
+# 4. Log out, select "i3" at the login screen, log back in
 ```
-
-## Prerequisites
-
-- **Nerd Font** — required for starship prompt icons and eza file icons
-- **zsh** — primary shell (bash also supported)
-- **git** — for plugin cloning and dotfiles management
 
 ## What's Included
 
